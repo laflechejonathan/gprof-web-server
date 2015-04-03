@@ -3,28 +3,47 @@
 {% import "bootstrap/fixes.html" as fixes %}
 {% import "bootstrap/utils.html" as util %}
 
+{% block title %}
+<title>Profiler Visualizer 2000</title>
+{% endblock %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('.static', filename='dropzone.css')}}">
+{% endblock %}
+
+{% block scripts %}
+{{super()}}
+<script src="{{url_for('.static', filename='dropzone.js')}}"></script>
+{% endblock %}
+
 {% block content %}
-{{util.flashed_messages()}}
 <div class="container">
     <h1>Profiler Visualizer 2000</h1>
-
 
     <form class="form" method="post" role="form">
         {{ form.hidden_tag() }}
         {{ wtf.form_errors(form, hiddens='only') }}
 
+        {{ wtf.form_field(form.profiler_output,
+           form_type='basic',
+           horizontal_columns=('lg', 2, 10),
+           button_map={'submit_button': 'primary'},
+           rows = 20)}}
 
-        {%- for field in form %}
-            {% if not bootstrap_is_hidden_field(field) -%}
-                {{ wtf.form_field(field,
-                   form_type='basic',
-                   horizontal_columns=('lg', 2, 10),
-                   button_map={'submit_button': 'primary'},
-                   rows = 20)}}
-            {%- endif %}
-        {%- endfor %}
+       <!-- Drop Zone -->
+       <label class="control-label">Or drag and drop file below</label>
+       <div class="upload-drop-zone" id="drop-zone">
+           Just drag and drop file here
+       </div>
+        {{ wtf.form_field(form.submit_button,
+           form_type='basic',
+           horizontal_columns=('lg', 2, 10),
+           button_map={'submit_button': 'primary'})}}
+
+
     </form>
-
+    
 </div>
 {% endblock %}
 

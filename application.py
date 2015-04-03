@@ -1,9 +1,7 @@
-import os
 import sys
 reload(sys)
 sys.setdefaultencoding("utf-8")
 sys.path.insert(0, '/opt/python/current/app')
-
 
 from flask import Flask, render_template, request
 from flask_bootstrap import Bootstrap
@@ -11,12 +9,11 @@ from flask_appconfig import AppConfig
 from flask_wtf import Form
 from wtforms import TextAreaField, SubmitField
 from gprof2dot import gprof_hack
-import json
-
 
 class ExampleForm(Form):
-    profiler_output = TextAreaField()
+    profiler_output = TextAreaField('Paste your gprof output here...')
     submit_button = SubmitField('Submit')
+
 
 application = Flask(__name__)
 application.debug = True
