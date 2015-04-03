@@ -1,0 +1,34 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "bootstrap/fixes.html" as fixes %}
+{% import "bootstrap/utils.html" as util %}
+
+{% block content %}
+{{util.flashed_messages()}}
+<div class="container">
+    <h1>Profiler Visualizer 2000</h1>
+
+
+    <form class="form" method="post" role="form">
+        {{ form.hidden_tag() }}
+        {{ wtf.form_errors(form, hiddens='only') }}
+
+
+        {%- for field in form %}
+            {% if not bootstrap_is_hidden_field(field) -%}
+                {{ wtf.form_field(field,
+                   form_type='basic',
+                   horizontal_columns=('lg', 2, 10),
+                   button_map={'submit_button': 'primary'},
+                   rows = 20)}}
+            {%- endif %}
+        {%- endfor %}
+    </form>
+
+</div>
+{% endblock %}
+
+{% block head %}
+{{super()}}
+{{fixes.ie8()}}
+{% endblock %}
