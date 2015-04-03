@@ -492,9 +492,13 @@ class Profile(Object):
             return function[outevent]
     
     def _integrate_call(self, call, outevent, inevent):
-	if outevent not in call:
-            print 'warning - outevent not in call'
+        # JLF HACK
+        ##############
+	if outevent in call:
+            sys.stderr.write('warning - outevent in call')
             return 0
+        ##############
+
         assert outevent not in call
         assert call.ratio is not None
         callee = self.functions[call.callee_id]
