@@ -34,7 +34,7 @@ def index():
     form = ExampleForm(request.form)
     if request.method == 'POST' and form.validate():
         form.validate_on_submit()
-        graph = gprof_hack.convert_to_dot(form.profiler_output)
+        graph = gprof_hack.convert_to_dot(form.profiler_output.data)
         return render_template('graph.html', dot_graph=graph)
     return render_template('index.html', form=form)
 
