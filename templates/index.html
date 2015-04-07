@@ -4,12 +4,13 @@
 {% import "bootstrap/utils.html" as util %}
 
 {% block title %}
-<title>Profiler Visualizer 2000</title>
+Profiler Visualizer 2000
 {% endblock %}
 
 {% block styles %}
 {{super()}}
 <link rel="stylesheet" href="{{url_for('.static', filename='dropzone.css')}}">
+<link rel="stylesheet" href="{{url_for('.static', filename='footer.css')}}">
 {% endblock %}
 
 {% block scripts %}
@@ -19,32 +20,57 @@
 
 {% block content %}
 <div class="container">
-    <h1>Profiler Visualizer 2000</h1>
+    <h2>Profiler Visualizer 2000</h2>
 
     <form class="form" method="post" role="form">
         {{ form.hidden_tag() }}
         {{ wtf.form_errors(form, hiddens='only') }}
 
+        <!-- Text Area -->
         {{ wtf.form_field(form.profiler_output,
            form_type='basic',
            horizontal_columns=('lg', 2, 10),
            button_map={'submit_button': 'primary'},
            rows = 20)}}
 
-       <!-- Drop Zone -->
-       <label class="control-label">Or drag and drop file below</label>
-       <div class="upload-drop-zone" id="drop-zone">
-           Just drag and drop file here
-       </div>
+        <!-- Drop Zone -->
+        <label class="control-label">Or drag and drop file below</label>
+        <div class="upload-drop-zone" id="drop-zone">
+            Just drag and drop file here
+        </div>
+
+        <!-- radio buttons -->
+        {% for item in form.profiler_type %}
+        <div class="radio-inline">
+            <label>
+                {{item|safe}} {{item.label.text|safe}}
+            </label>
+        </div>
+        {% endfor %}
+
+        <br>
+        <br>
+
+        <!-- submit button -->
         {{ wtf.form_field(form.submit_button,
            form_type='basic',
            horizontal_columns=('lg', 2, 10),
            button_map={'submit_button': 'primary'})}}
 
-
     </form>
-    
+
+    <br>
+
+    <footer class="footer">
+        <span class="text-muted pull-left">
+        <a href="/about">About</a> |
+        <a href="https://github.com/laflechejonathan/gprof-web-server" target="blank">Github</a> |
+        <a href="https://github.com/jrfonseca/gprof2dot" target="blank">Gprof2dot</a>
+        </span>
+    </footer>
+
 </div>
+
 {% endblock %}
 
 {% block head %}

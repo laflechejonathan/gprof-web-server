@@ -820,11 +820,11 @@ class LineParser(Parser):
         else:
             self.line_no += 1
         line = line.rstrip('\r\n')
-        if not PYTHON_3:
-            encoding = self._stream.encoding
-            if encoding is None:
-                encoding = locale.getpreferredencoding()
-            line = line.decode(encoding)
+        # if not PYTHON_3:
+        #     encoding = self._stream.encoding
+        #     if encoding is None:
+        #         encoding = locale.getpreferredencoding()
+        #     line = line.decode(encoding)
         self.__line = line
 
     def lookahead(self):

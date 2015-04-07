@@ -1,7 +1,7 @@
 from gprof2dot import themes, formats, DotWriter
 from StringIO import StringIO
 
-def convert_to_dot(prof_string):
+def convert_to_dot(prof_string, prof_format):
     """Main program."""
 
     output = StringIO()
@@ -15,7 +15,7 @@ def convert_to_dot(prof_string):
     # if Format.multipleInput:
     #     continue
 
-    Format = formats['prof']
+    Format = formats[prof_format]
 
     parser = Format(StringIO(prof_string))
     profile = parser.parse()
